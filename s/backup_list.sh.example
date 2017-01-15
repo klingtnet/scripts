@@ -1,0 +1,6 @@
+folders=(
+    ~/code
+    ~/vault
+)
+
+# vim: filetype=sh

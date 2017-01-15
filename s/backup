@@ -1,0 +1,28 @@
+#!/bin/bash
+
+set -uo pipefail
+
+hash restic &> /dev/null
+[[ $? -ne 0 ]]\
+    && echo "restic is not installed!"\
+    && exit 1
+
+backup_list="$(dirname $(realpath $0))/backup_list.sh"
+[[ ! -f "$backup_list" ]]\
+    && echo "Could not find list of folders to backup: $backup_list"\
+    && exit 3
+
+source $backup_list
+
+set -e
+
+REPO="/run/media/${USER}/BACKUP/${USER}@${HOSTNAME}-restic"
+
+[[ ! -d "$REPO" ]]\
+    && echo "restic repository does not exist: $REPO"\
+    && echo "restic init --repo \"$REPO\""\
+    && exit 2
+
+restic backup --repo "$REPO" ${folders[@]}
+
+# vim: filetype=sh

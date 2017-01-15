@@ -1,0 +1,28 @@
+#!/bin/bash
+
+set -o pipefail
+
+syncer=rsync
+syncer_opts="--archive"
+hash ${syncer} &>/dev/null
+[[ $? -ne 0 ]]\
+    && echo "${syncer} is not installed!"\
+    && exit 2
+
+keepassdb=${1:-"$HOME/vault/${HOSTNAME}.kdbx"}
+usbdrive="/run/media/${USER}/usbdata"
+
+set -u
+
+mount | grep $usbdrive &>/dev/null
+[[ $? -ne 0 ]]\
+    && echo "USB drive not present"\
+    && exit 1
+
+set -e
+
+dbname="$(basename $keepassdb)"
+${syncer} ${syncer_opts} "$keepassdb" "${usbdrive}/$dbname"\
+    && echo "Successfully synced to ${usbdrive}/$dbname"
+
+# vim: filetype=sh
