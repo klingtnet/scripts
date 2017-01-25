@@ -9,7 +9,7 @@ hash ${syncer} &>/dev/null
     && echo "${syncer} is not installed!"\
     && exit 2
 
-keepassdb=${1:-"$HOME/vault/${HOSTNAME}.kdbx"}
+keepassdb=${1:-"$HOME/vault/${HOSTNAME}-${USER}.kdbx"}
 usbdrive="/run/media/${USER}/usbdata"
 
 set -u
