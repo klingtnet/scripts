@@ -21,8 +21,6 @@ keepass_db_name=${HOSTNAME}-${USER}.kdbx
 keepass_db_dir=$HOME/vault
 usbdrive="/run/media/${USER}/usbdata"
 
-set -u
-
 mount | grep $usbdrive &>/dev/null
 [[ $? -ne 0 ]]\
     && echo "USB drive not present"\
