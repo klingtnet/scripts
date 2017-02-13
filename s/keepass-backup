@@ -11,10 +11,10 @@ hash ${syncer} &>/dev/null
 
 sync_db() {
     local db_name="$1"
-    local source=$2
-    local target=$3
-    ${syncer} ${syncer_opts} "${1}/$db_name" "${2}/$dbname"\
-        && echo "Successfully synced to ${2}/$db_name"
+    local source="$2"
+    local target="$3"
+    ${syncer} ${syncer_opts} "$source/$db_name" "$target/$db_name"\
+        && echo "Successfully synced to $target/$db_name"
 }
 
 keepass_db_name=${HOSTNAME}-${USER}.kdbx
