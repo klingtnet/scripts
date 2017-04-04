@@ -21,8 +21,13 @@ case "$1" in
     jack_control dps rate "$SAMPLE_RATE"
     jack_control dps period "$PERIOD"
     jack_control dps nperiods "$NPERIODS"
-;;
+    ;;
 "stop")
     jack_control  stop
+    ;;
+*)
+    cat <<EOF
+Usage: $0 [start|stop]
+EOF
     ;;
 esac
