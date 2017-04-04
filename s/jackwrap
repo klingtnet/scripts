@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+DRIVER='alsa'
+SAMPLE_RATE=48000
+DUPLEX=true
+DEVICE='UA25EX'
+PERIOD=256
+NPERIODS=3
+
+case "$1" in
+"start" | "")
+    jack_control start
+    # eps - engine parameter set
+    jack_control eps realtime true
+    # ds - driver set
+    jack_control ds "$DRIVER"
+    # dps - driver parameter set
+    jack_control dps device "hw:$DEVICE"
+    jack_control dps rate "$SAMPLE_RATE"
+    jack_control dps period "$PERIOD"
+    jack_control dps nperiods "$NPERIODS"
+;;
+"stop")
+    jack_control  stop
+    ;;
+esac
