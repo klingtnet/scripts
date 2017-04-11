@@ -16,7 +16,7 @@ source $backup_list
 
 set -e
 
-REPO="${REPO:-/run/media/${USER}/BACKUP/${USER}@${HOST}-restic}"
+REPO="${REPO:-/run/media/${USER}/BACKUP/${USER}@$(hostname)-restic}"
 
 [[ ! -d "$REPO" ]]\
     && echo "restic repository does not exist: $REPO"\
