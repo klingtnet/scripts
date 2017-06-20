@@ -23,6 +23,10 @@ REPO="${REPO:-/run/media/${USER}/BACKUP/${USER}@$(hostname)-restic}"
     && echo "restic init --repo \"$REPO\""\
     && exit 2
 
-restic backup --repo "$REPO" ${folders[@]}
+restic backup --repo "$REPO"\
+    --exclude "tmp/*"\
+    --exclude "temp/*"\
+    --exclude "cache*/"\
+    ${folders[@]}
 
 # vim: filetype=sh
