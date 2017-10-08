@@ -16,19 +16,17 @@ source $backup_list
 
 set -e
 
-REPO="${REPO:-/run/media/${USER}/BACKUP/${USER}@$(hostname)-restic}"
+CREDENTIALS=${CREDENTIALS:-'<user:pass>'}
+REPO_NAME="$(whoami)@$(hostname)"
+REPO_URL="${REPO:-rest:https://${CREDENTIALS}@restic.klingt.net/${REPO_NAME}}"
 
-[[ ! -d "$REPO" ]]\
-    && echo "restic repository does not exist: $REPO"\
-    && echo "restic init --repo \"$REPO\""\
-    && exit 2
-
-restic backup --repo "$REPO"\
+restic backup --repo "$REPO_URL"\
     --exclude "tmp/*"\
     --exclude "temp/*"\
     --exclude "Temp/*"\
     --exclude "cache*/"\
     --exclude "Cache*/"\
-    ${folders[@]}
+    ${folders[@]}\
+    || echo "Does the repo exist? restic init --repo '$REPO_URL'"
 
 # vim: filetype=sh
