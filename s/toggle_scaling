@@ -1,0 +1,20 @@
+#!/bin/bash
+
+_cinnamon() {
+    local value=$(gsettings get org.cinnamon.desktop.interface scaling-factor | cut -d ' ' -f 2)
+    case $value in
+    1)
+        gsettings set org.cinnamon.desktop.interface scaling-factor 2
+        ;;
+    2)
+        gsettings set org.cinnamon.desktop.interface scaling-factor 1
+        ;;
+    *)
+        echo "Unexpected scaling value: $value"
+        exit 1
+        ;;
+    esac
+}
+
+[[ -v CINNAMON_VERSION ]] && _cinnamon
+
