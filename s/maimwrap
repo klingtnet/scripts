@@ -15,3 +15,5 @@ case "$1" in
     maim --window=$(xdotool getactivewindow) "$FILENAME"
 	;;
 esac
+
+notify-send "Stored screenshot in '$FILENAME'" --icon=camera-photo
