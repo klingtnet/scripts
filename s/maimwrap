@@ -1,0 +1,15 @@
+#!/bin/sh
+
+FILENAME="$HOME/Pictures/Screenshot-$(date +%s).png"
+
+case "$1" in
+'')
+	maim "$FILENAME"
+	;;
+'select')
+	maim --select "$FILENAME"
+	;;
+'window')
+    maim --window=$(xdotool getactivewindow) "$FILENAME"
+	;;
+esac
