@@ -26,7 +26,7 @@ restic backup --repo "$REPO_URL"\
     --exclude "Temp/*"\
     --exclude "cache*/"\
     --exclude "Cache*/"\
-    ${folders[@]}\
+    "${folders[@]}"\
     || echo "Does the repo exist? restic init --repo '$REPO_URL'"
 
 # vim: filetype=sh
